@@ -8,7 +8,7 @@
     <DebugType>portable</DebugType>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
-    <VersionPrefix>2.7.7</VersionPrefix>
+    <VersionPrefix>2.7.8</VersionPrefix>
     <Title>ufadev.NPOI</Title>
     <Authors>Tony Qu;NPOI Contributors;ufadev</Authors>
     <Description>Unofficial fork of NPOI (.NET port of Apache POI) taken from the last upstream revision that carried no maintenance-fee EULA. Apache-2.0 only, no fee for any use. Not affiliated with or endorsed by the NPOI project or Nissl Lab.</Description>

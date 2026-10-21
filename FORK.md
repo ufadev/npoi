@@ -126,12 +126,15 @@ newer ImageSharp versions, and this fork does not depend on it.
 
 - `Directory.Build.props`: removed the NuGetizer reference and the per-project pack items. Projects are now
   non-packable by default. Package metadata points at this fork, and the upstream logo icon is gone.
-  Version is `2.7.7`.
+  Version is `2.7.8` (`2.7.7` was the first fork release).
 - `Directory.Packages.props`: removed NuGetizer. Raised `System.Security.Cryptography.Xml`,
   `System.Formats.Asn1` and `System.Security.Cryptography.Pkcs` (pinned transitively) from 8.0.x to 10.0.13.
   This fixes the high-severity advisories GHSA-23rf-6693-g89p, GHSA-37gx-xxp4-5rgx, GHSA-846f-f764-76mx and
   others. At the fork point those advisories turned restore into an error because NuGet audit warnings are
-  treated as errors.
+  treated as errors. Since `2.7.8`, `System.Memory` 4.6.3, `System.ValueTuple` 4.6.2 and
+  `System.Threading.Tasks.Extensions` 4.5.4 are pinned too, so every project and the net472/netstandard2.0
+  assemblies in the package reference the same versions. In `2.7.7` NPOI.Core and NPOI.OOXML referenced
+  different `System.Memory` versions.
 - `solution/NPOI.Pack.csproj`: the package ID is now `ufadev.NPOI`. The four assemblies are packed with SDK
   targets. Package dependencies are restated explicitly, and `LICENSE`, `NOTICE` and `README.md` are packed.
 - `main/Util/Collections/StringTokenizer.cs`: clean Apache-2.0 reimplementation, as described in section 4.3.
@@ -141,6 +144,8 @@ newer ImageSharp versions, and this fork does not depend on it.
 - `build/README.md`: replaced with the package README for this fork.
 - `.github/workflows/opencode.yml`: removed. It was upstream's AI-agent workflow, which uses upstream secrets
   and an unpinned `@latest` action.
+- `.github/workflows/release.yml`: added. A `v*` tag packs the package and pushes it to nuget.org through
+  Trusted Publishing.
 - `NOTICE`, `FORK.md`: added.
 - `README.md`: added a fork banner at the top. The upstream text below it is unchanged.
 
