@@ -1,19 +1,60 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <!-- This is an umbrella project that gathers dependencies for dotnet pack -->
-  
+  <!-- Umbrella project: packs NPOI.Core, NPOI.OOXML, NPOI.OpenXml4Net and NPOI.OpenXmlFormats into one package with plain `dotnet pack`. -->
+
   <PropertyGroup>
     <TargetFrameworks>net472;netstandard2.0;netstandard2.1;net8.0;net10.0</TargetFrameworks>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
-    <PackageId>NPOI</PackageId>
     <OutputPath>..\solution\$(Configuration)\</OutputPath>
+    <IsPackable>true</IsPackable>
+    <PackageId>ufadev.NPOI</PackageId>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeSymbols>false</IncludeSymbols>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);AddNpoiAssembliesToPackage</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\main\NPOI.Core.csproj" />
-    <ProjectReference Include="..\ooxml\NPOI.OOXML.Core.csproj" />
-    <ProjectReference Include="..\openxml4Net\NPOI.OpenXml4Net.Core.csproj" />
-    <ProjectReference Include="..\OpenXmlFormats\NPOI.OpenXmlFormats.Core.csproj" />
+    <ProjectReference Include="..\main\NPOI.Core.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ooxml\NPOI.OOXML.Core.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\openxml4Net\NPOI.OpenXml4Net.Core.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\OpenXmlFormats\NPOI.OpenXmlFormats.Core.csproj" PrivateAssets="all" />
   </ItemGroup>
+
+  <!-- Project references are private, so their package dependencies are restated here to land in the nuspec. -->
+  <ItemGroup>
+    <PackageReference Include="BouncyCastle.Cryptography" />
+    <PackageReference Include="Enums.NET" />
+    <PackageReference Include="ExtendedNumerics.BigDecimal" />
+    <PackageReference Include="MathNet.Numerics.Signed" />
+    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" />
+    <PackageReference Include="SharpZipLib" />
+    <PackageReference Include="SkiaSharp" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" />
+    <PackageReference Include="System.Security.Cryptography.Xml" />
+    <PackageReference Include="ZString" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net8.0' And '$(TargetFramework)' != 'net10.0' ">
+    <PackageReference Include="System.Text.Encoding.CodePages" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE" Pack="true" Visible="false" PackagePath="" />
+    <None Include="..\NOTICE" Pack="true" Visible="false" PackagePath="" />
+    <None Include="..\build\README.md" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+
+  <Target Name="AddNpoiAssembliesToPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <_NpoiProjectOutput Include="@(ReferenceCopyLocalPaths)" Condition=" '%(ReferenceCopyLocalPaths.ReferenceSourceTarget)' == 'ProjectReference' And ('%(Extension)' == '.dll' Or '%(Extension)' == '.xml' Or '%(Extension)' == '.pdb') " />
+    </ItemGroup>
+    <RemoveDuplicates Inputs="@(_NpoiProjectOutput)">
+      <Output TaskParameter="Filtered" ItemName="_NpoiProjectOutputDistinct" />
+    </RemoveDuplicates>
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="@(_NpoiProjectOutputDistinct)" PackagePath="lib/$(TargetFramework)/%(Filename)%(Extension)" />
+    </ItemGroup>
+  </Target>
 
 </Project>

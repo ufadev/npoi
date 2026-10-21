@@ -8,20 +8,19 @@
     <DebugType>portable</DebugType>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
-    <VersionPrefix>2.7.6</VersionPrefix>
-    <Title>NPOI</Title>
-    <Authors>Tony Qu,NPOI Contributors</Authors>
-    <Owners>Nissl Lab</Owners>
-    <Description>.NET port of Apache POI</Description>
-    <Summary>NPOI can read and write xls (Excel 97-2003), xlsx(Excel 2007+) and docx(Word 2007+). </Summary>
-    <RepositoryUrl>https://github.com/nissl-lab/npoi</RepositoryUrl>
+    <VersionPrefix>2.7.7</VersionPrefix>
+    <Title>ufadev.NPOI</Title>
+    <Authors>Tony Qu;NPOI Contributors;ufadev</Authors>
+    <Description>Unofficial fork of NPOI (.NET port of Apache POI) taken from the last upstream revision that carried no maintenance-fee EULA. Apache-2.0 only, no fee for any use. Not affiliated with or endorsed by the NPOI project or Nissl Lab.</Description>
+    <Summary>Reads and writes xls (Excel 97-2003), xlsx (Excel 2007+) and docx (Word 2007+).</Summary>
+    <RepositoryUrl>https://github.com/ufadev/npoi</RepositoryUrl>
 
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageIcon>logo\60_60.jpg</PackageIcon>
-    <PackageProjectUrl>https://github.com/nissl-lab/npoi</PackageProjectUrl>
-    <PackageReleaseNotes>https://github.com/nissl-lab/npoi/discussions/1636</PackageReleaseNotes>
-    <Copyright>Nissl LLC</Copyright>
-    <PackageTags>xlsx xls Excel Word docx office ole</PackageTags>
+    <PackageProjectUrl>https://github.com/ufadev/npoi</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/ufadev/npoi/blob/main/FORK.md</PackageReleaseNotes>
+    <Copyright>Copyright Nissl LLC and NPOI contributors; fork modifications copyright ufadev</Copyright>
+    <PackageTags>xlsx xls Excel Word docx office ole npoi apache-poi</PackageTags>
+    <IsPackable>false</IsPackable>
 
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
@@ -103,19 +102,5 @@
 
     <NoWarn>$(NoWarn);SYSLIB0021;SYSLIB0051</NoWarn> <!-- Deprecated API usage -->
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\LICENSE" Pack="true" Visible="false" PackagePath="" />
-    <None Include="..\build\README.md" Pack="true" Visible="false" PackagePath="" />
-    <None Include="..\logo\*.png" Pack="true" Visible="false" PackagePath="logo\" />
-    <None Include="..\logo\*.jpg" Pack="true" Visible="false" PackagePath="logo\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="NuGetizer">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
 
 </Project>
