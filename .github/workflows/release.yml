@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    name: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: |
+            10.0
+      - uses: actions/checkout@v4
+      - name: Check tag matches VersionPrefix
+        run: |
+          version=$(dotnet msbuild solution/NPOI.Pack.csproj -getProperty:VersionPrefix)
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match VersionPrefix $version in Directory.Build.props"
+            exit 1
+          fi
+      - name: Pack
+        run: dotnet pack solution/NPOI.Pack.csproj -c Release -o publish -p:ContinuousIntegrationBuild=true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nupkg
+          path: publish/*.nupkg
+      - name: NuGet login
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER }}
+      - name: NuGet push
+        run: dotnet nuget push publish/*.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
