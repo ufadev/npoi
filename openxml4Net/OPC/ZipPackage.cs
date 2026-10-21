@@ -112,7 +112,7 @@ namespace NPOI.OpenXml4Net.OPC
                 ZipInputStream zis = null;
                 try
                 {
-                    fis = file.Create();
+                    fis = file.OpenRead();
                     // TODO: ZipSecureFile
                     // zis = ZipHelper.OpenZipStream(fis);
                     zis = ZipHelper.OpenZipStream(fis);

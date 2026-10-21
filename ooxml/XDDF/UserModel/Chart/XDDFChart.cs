@@ -702,10 +702,6 @@ namespace NPOI.XDDF.UserModel.Chart
             {
                 SetWorksheetPartCommitted();
                 workbook.Write(xlsxOut);
-                using(Stream testOutput = File.Create("C:\\playground\\files\\workbook1.xlsx"))
-                {
-                    workbook.Write(testOutput);
-                }
             }
         }
 
