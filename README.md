@@ -1,3 +1,13 @@
+> [!IMPORTANT]
+> **This is `ufadev.NPOI`, an unofficial fork of NPOI.** It is not affiliated with or endorsed by the NPOI project or Nissl Lab.
+>
+> - It is forked at upstream commit `aa50262` (2026-03-29), the last revision before upstream added the "Open Source Maintenance Fee" EULA.
+> - It is licensed under **Apache-2.0 only**. There is no fee and no EULA, and commercial use is free.
+> - It is published as the NuGet package `ufadev.NPOI`, a binary drop-in for `NPOI`. Do not reference both packages in one application.
+> - [FORK.md](FORK.md) has the legal analysis, the dependency license audit and the list of changes.
+>
+> The upstream README follows unchanged. Its badges, links and donation requests refer to the upstream project.
+
 What's NPOI
 ===================
 [![NuGet](https://img.shields.io/nuget/dt/npoi)](https://www.nuget.org/packages/NPOI)
